@@ -1,0 +1,315 @@
+extends layout
+
+block content
+    .container
+        .row
+            .col-md-12            
+                input#reviewers_array(type='hidden', value='#{JSON.stringify(data.per.permit)}')
+                if data.user.authorized == 'no'
+                  h5#reviewer1_name
+                  textarea#reviewer1_comment.text-danger.form-control(rows='3', readonly)
+                  br
+                  h5#reviewer2_name
+                  textarea#reviewer2_comment.text-danger.form-control(rows='3', readonly)
+                  br
+                  br
+                h4 General Work Permit
+                input#user_obj(type='hidden', value='#{JSON.stringify(data.user)}')
+                h4 Общий наряд-допуск на проведение работ №
+                  |  #{data.per.permit.gen_per_id}
+                br
+        .row
+          .col-md-12
+              .row
+                input#permit_id(type='hidden', name='gen_per_id', value='#{data.per.permit.gen_per_id}')
+                .col-md-6.outer_box
+                  .form-row               
+                    h6 To be completed by the PIC or Designate
+                    h6 Заполняется Руководителем задания или назначенным им лицом
+                    .form-row
+                      .form-group
+                        label Work location/Место проведения работ:
+                        textarea#work_location.form-control(rows='5', readonly) #{data.per.permit.w_loc}
+                    .form-row
+                      .row
+                        .col-md-6
+                            .form-row
+                              .form-group
+                                label Valid from (date)/Действ. с (дата):
+                                input.form-control(type='text', value='#{data.per.permit.d_from}', readonly)
+                        .col-md-6
+                            .form-row
+                              .form-group
+                                label To (date)/По (дата):
+                                input.form-control(type='text', value='#{data.per.permit.d_to}', readonly)
+                    .form-row
+                      .form-group
+                        label Permission requested by (name of group)/Наряд выдан (название отдела):
+                        textarea#permission_requested.form-control(rows='5', readonly) #{data.per.permit.p_req}
+                    .form-row
+                      .form-group
+                        label Scope of work/Объем работы:
+                        textarea#scope_of_work.form-control(rows='5', readonly) #{data.per.permit.s_work}
+                    .form-row
+                      .form-group
+                        label Equipment to be used/Используемое оборудование:
+                        textarea#equipment_used.form-control(rows='5', readonly) #{data.per.permit.e_used}
+                .col-md-6.outer_box
+                  .form-row        
+                    h6 SITE PRPARATION (completed by PIC and FO)
+                    h6 ПОДГОТОВКА МЕСТА ПРОВЕДЕНИЯ РАБОТ
+                    h6 (заполняет Руководитель задания и Руководитель объекта)
+                    .form-row
+                      .form-group
+                        label Check if required/Отметить при необходимости
+                        .form-check
+                          label.form-check-label
+                            if data.per.permit.checkbox1 != '0'                            
+                                input#equipment_isolation.form-check-input.gen_per_checkbox(type='checkbox', value='Eqipment isolation/Изоляция Оборудования', checked, disabled)
+                            else 
+                                input#equipment_isolation.form-check-input.gen_per_checkbox(type='checkbox', value='Eqipment isolation/Изоляция Оборудования', disabled)
+                            |  Eqipment isolation/Изоляция Оборудования
+                        .form-check
+                          label.form-check-label
+                            if data.per.permit.checkbox2 != '0' 
+                              input#depressure_drain.form-check-input.gen_per_checkbox(type='checkbox', value='Depressure, drain, purg equipment/Сброс давления, слив продукта, продувка', checked, disabled)
+                            else
+                              input#depressure_drain.form-check-input.gen_per_checkbox(type='checkbox', value='Depressure, drain, purg equipment/Сброс давления, слив продукта, продувка', disabled)
+                            |  Depressure, drain, purg equipment/Сброс давления, слив продукта, продувка
+                        .form-check
+                          label.form-check-label
+                            if data.per.permit.checkbox3 != '0' 
+                              input#lockout_tagout.form-check-input.gen_per_checkbox(type='checkbox', value='Lockout/Tagout/Установка замков и вывешивание ярлыков', checked, disabled)
+                            else
+                              input#lockout_tagout.form-check-input.gen_per_checkbox(type='checkbox', value='Lockout/Tagout/Установка замков и вывешивание ярлыков', disabled)
+                            |  Lockout/Tagout/Установка замков и вывешивание ярлыков
+                        .form-check
+                          label.form-check-label
+                            if data.per.permit.checkbox4 != '0' 
+                              input#electrical_disconnet.form-check-input.gen_per_checkbox(type='checkbox', value='Electrical disconnect/fuse removal/Отключение электропитания/снятие предохранителей', checked, disabled)
+                            else
+                              input#electrical_disconnet.form-check-input.gen_per_checkbox(type='checkbox', value='Electrical disconnect/fuse removal/Отключение электропитания/снятие предохранителей', disabled)
+                            |  Electrical disconnect/fuse removal/Отключение электропитания/снятие предохранителей
+                        .form-check
+                          label.form-check-label
+                            if data.per.permit.checkbox5 != '0' 
+                              input#binds_tags.form-check-input.gen_per_checkbox(type='checkbox', value='Binds and tags/Установка заглушек и вывешивание ярлыков', checked, disabled)
+                            else
+                              input#binds_tags.form-check-input.gen_per_checkbox(type='checkbox', value='Binds and tags/Установка заглушек и вывешивание ярлыков', disabled)
+                            |  Binds and tags/Установка заглушек и вывешивание ярлыков
+                        .form-check
+                          label.form-check-label
+                            if data.per.permit.checkbox6 != '0' 
+                              input#arrea_barricades.form-check-input.gen_per_checkbox(type='checkbox', value='Area barricafes/road closures/Установка ограждения/закрытие дороги', checked, disabled)
+                            else
+                              input#arrea_barricades.form-check-input.gen_per_checkbox(type='checkbox', value='Area barricafes/road closures/Установка ограждения/закрытие дороги', disabled)
+                            |  Area barricafes/road closures/Установка ограждения/закрытие дороги
+                        .form-check
+                          label.form-check-label
+                            if data.per.permit.checkbox7 != '0' 
+                              input#two_way_radio.form-check-input.gen_per_checkbox(type='checkbox', value='Two-way radio/Установление двусторонней связи', checked, disabled)
+                            else
+                              input#two_way_radio.form-check-input.gen_per_checkbox(type='checkbox', value='Two-way radio/Установление двусторонней связи', disabled)
+                            |  Two-way radio/Установление двусторонней связи
+                        .form-check
+                          label.form-check-label
+                            if data.per.permit.checkbox8 != '0' 
+                              input#scaffolding_checkbox.form-check-input.gen_per_checkbox(type='checkbox', value='Scaffolding/Установка лесов', checked, disabled)
+                            else
+                              input#scaffolding_checkbox.form-check-input.gen_per_checkbox(type='checkbox', value='Scaffolding/Установка лесов', disabled)
+                            |  Scaffolding/Установка лесов
+                        .form-check
+                          label.form-check-label
+                            if data.per.permit.checkbox9 != '0' 
+                              input#rigging_diagram.form-check-input.gen_per_checkbox(type='checkbox', value='Rigging diagram prepared/Подготовлена схема грузоподъемных работ', checked, disabled)
+                            else
+                              input#rigging_diagram.form-check-input.gen_per_checkbox(type='checkbox', value='Rigging diagram prepared/Подготовлена схема грузоподъемных работ', disabled)
+                            |  Rigging diagram prepared/Подготовлена схема грузоподъемных работ
+                        .form-check
+                          label.form-check-label
+                            if data.per.permit.checkbox10 != '0' 
+                              input#x_ray_work.form-check-input.gen_per_checkbox(type='checkbox', value='X-ray work/Дефектоскопия', checked, disabled)
+                            else
+                              input#x_ray_work.form-check-input.gen_per_checkbox(type='checkbox', value='X-ray work/Дефектоскопия', disabled)
+                            |  X-ray work/Дефектоскопия
+                        .form-check
+                          label.form-check-label
+                            if data.per.permit.checkbox11 != '0' 
+                              input#mechanical_ventilation.form-check-input.gen_per_checkbox(type='checkbox', value='Mechanical ventilation/Искусственная вентиляция', checked, disabled)
+                            else
+                              input#mechanical_ventilation.form-check-input.gen_per_checkbox(type='checkbox', value='Mechanical ventilation/Искусственная вентиляция', disabled)
+                            |  Mechanical ventilation/Искусственная вентиляция
+                        .form-check
+                          label.form-check-label
+                            if data.per.permit.checkbox12 != '0' 
+                              input#other_checkbox.form-check-input.gen_per_checkbox(type='checkbox', value='Other/Другое', checked, disabled)
+                            else
+                              input#other_checkbox.form-check-input.gen_per_checkbox(type='checkbox', value='Other/Другое', disabled)
+                            |  Other/Другое
+                  .form-row
+                    .form-group
+                      label Safety & protective equipment required/Необходимое защитное оборудование:
+                      textarea#safety_protective.form-control(rows='5', readonly) #{data.per.permit.p_equip}
+                  .form-row
+                    .form-group
+                      label Special safety measures required/Специальные меры по обеспечению безопасности проведения работ:
+                      textarea#special_safety.form-control(rows='5', readonly) #{data.per.permit.s_meas}
+              if data.user.authorized == "yes"
+                .row
+                  .col-md-12.outer_box
+                    table#approval_signatures.table.table-bordered
+                      thead
+                        tr
+                          th APPROVAL SIGNATURES
+                            br
+                            |  ПОДПИСИ ЛИЦ, РАЗРЕШАЮЩИХ НАЧАТЬ РАБОТЫ
+                          th Printed Name
+                            br 
+                            | ФИО
+                          th Signature
+                            br 
+                            | Подпись
+                          th Date
+                            br
+                            | Дата
+                      tbody
+                        tr                        
+                          td 
+                            span.owner_table_span Facility Owner (AGREE WITH PERMIT CONDITIONS)
+                            br
+                            span Руководитель объекта (СОГЛАСЕН С УСЛОВИЯМИ НАРЯДА-ДОПУСКА) 
+                          td.reviewer_name 
+                          td.reviewer_signature
+                          td.reviewer_approved_date 
+                        tr
+                          td 
+                            span.owner_table_span Work Responsible Person (PERMIT CONDITIONS UNDERSTOOD)
+                            br
+                            span Ответственный за выполнение работ (УСЛОВИЯ НАРЯДА-ДОПУСКА ПОНИМАЮ)
+                          td.reviewer_name 
+                          td.reviewer_signature
+                          td.reviewer_approved_date
+              if data.per.permit.gen_per_status == 'reviewed'
+                .row
+                  .col-md-12.outer_box
+                    table.table.table-bordered
+                      thead
+                        tr
+                          th WORK COMPLETED/РАБОТЫ ЗАВЕРШЕНЫ
+                          th Printed Name
+                            br 
+                            | ФИО
+                          th Signature
+                            br 
+                            | Подпись
+                          th Date
+                            br
+                            | Дата
+                      tbody
+                        tr
+                          td 
+                            span.owner_table_span Work Responsible Person/Ответственный за выполнение работ
+                          td autofilled 
+                          td
+                            .form-group
+                              input.form-control(type='text', placeholder='NK')
+                            .form-group
+                              input.form-control(type='password', placeholder='Key')
+                            .form-group
+                              input.btn.btn-default(type='button', value='sign', onclick='signas(event)') 
+                          td autofilled
+              br
+              br
+              br
+              .row
+                .col-md-6
+                  span.owner_table_span Work Responsible Person:
+                  br
+                  span.owner_table_span PRE-WORK SAFETY BRIEFING HELD
+                  br
+                  span Ответственный за выполнение работ:
+                  br
+                  span ИНСТРУКТАЖ ПЕРЕД НАЧАЛОМ РАБОТ ПРОВЕДЕН
+                .col-md-4
+                  label Signature/Подпись
+                  div
+                    img(src='#{data.per.permit.r_per_sign}')
+                .col-md-2
+                  label Date/Дата
+                  input(type='text', name='r_per_date', value='#{data.per.permit.r_per_date}', readonly)
+              br
+              .row
+                .col-md-12
+                  h4.text-center Authorized Worker List
+                  h4.text-center Список исполнителей работ
+                  span.owner_table_span I understand the specific safety requirements of this job, appropriate Tengizchevroil Safety Instructions and have attended a pre-work safety briefing.
+                  br
+                  span Понимаю требования по ТБ при выполнении данного вида работ, соответствующие иструкции по ТБ компании "Тенгизшевройл" и прослушал инструктаж перед выполнением работ.
+              .row
+                .col-md-12.outer_box
+                  table.table.table-bordered
+                    thead
+                      tr
+                        th Printed Name
+                          br 
+                          | Фамилия
+                        th Signature
+                          br 
+                          | Подпись
+                    tbody#authorized_worker_list
+                      each val in data.per.permit.aw_list
+                        tr
+                          td= val.aw_name                            
+                          td
+                            img(src= val.aw_sign)
+                  if data.user.authorized == 'no'
+                    p#add_authorized_worker.text-center 
+                      input.btn.btn-primary(type='button', value='add field', onclick='addAwlField("authorized_worker_list")')
+              br
+              br
+              br
+              br
+              .row
+                .col-md-12
+                  .form-group
+                    label Type of work
+                    if data.user.authorized == 'yes'
+                      input.form-control(type='text', value='#{data.per.permit.type_of_work}', readonly)
+                    else
+                      select#type_of_work_select.form-control(name='type_of_work')
+                        option Electrical activities
+                        option Welding activities
+                        option Lifting activities
+                        option Digging activities                    
+              br
+              br
+              if data.user.authorized == 'yes'
+                .row
+                  .col-md-12
+                    textarea#comment_textarea.form-control(rows='5', placeholder='Enter your comments here')
+              br
+              br
+              .row
+                .col-md-12
+                  a(href='/signout')
+                    button.btn.btn-primary.float-right(type='button') Sign Out
+                  a(href='/main')
+                    button.btn.btn-primary.float-right(type='button') Back 
+                  if data.user.authorized == 'yes'
+                    button#approve_but.send_but.btn.btn-primary.float-left(type='button') Approve                  
+                    button#reject_but.send_but.btn.btn-primary.float-left(type='button') Reject                 
+                    button#com_and_rej_but.toggle_buts.btn.btn-primary.float-left(type='button') Comment and Reject                  
+                    button#cancel_but.toggle_buts.btn.btn-primary.float-left(type='button') Cancel
+                  else
+                    button#sent_back_for_review.send_but.btn.btn-primary.float-left(type='button')
+    script(src='/js/shared.js')
+    if data.user.authorized == 'no'
+      script(src='/js/openper_for_generator.js')
+    else
+      script(src='/js/openper.js')
+                  
+
+
+
+
+            

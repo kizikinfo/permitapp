@@ -1,0 +1,84 @@
+extends layout
+
+block content
+        .mainauth_page
+            br
+            br
+            .row
+                .col-md-12
+                    h3.text-center Welcome, #{data.user.firstName} #{data.user.lastName}
+            br
+            br
+            br
+            br
+            .row
+                .col-md-4.mainauth_permit_list
+                    br
+                    h5.text-center #{data.h5text}
+                    br
+                    if data.permits == 0
+                        input.form-control(type='text', value=data.emptytext, readonly)
+                    else
+                        .list-group
+                            each val in data.permits
+                                -var link= data.linkto + val.id
+                                a.list-group-item.list-group-item-action.flex-column.align-items-start.permit_list_a_tags(href= link)
+                                    .d-flex.w-100.justify-content-between
+                                        h6.mb-1= 'Permit ID ' + val.id
+                                    br
+                                    p.mb-1= val.desc.substring(1, 200)+'...'
+                                br
+                            br
+
+                .col-md-8.mainauth_search_permit
+                    br
+                    h5.text-center Search Permits
+                    br
+                    .row
+                        .offset-md-2.col-md-8
+                            form
+                                .form-group
+                                    label(for='exampleInputEmail1') Permit ID
+                                    input.form-control(type='text', aria-describedby='emailHelp', placeholder='Enter Permit ID')
+                                .form-group
+                                    label(for='exampleInputPassword1') Originator
+                                    input.form-control(type='text', placeholder="Enter originator's name")
+                                .form-group
+                                    label Type of work
+                                    select.form-control
+                                        option(selected) Electrical activities
+                                        option Welding activities
+                                        option Lifting activities
+                                        option Digging activities 
+                                .form-group
+                                    label Description
+                                    textarea#exampleTextarea.form-control(rows='3')
+                                    br
+                                    .form-check.no_border
+                                        label.form-check-label
+                                        input.form-check-input(type='radio', name='optionsRadios', value='option1', checked='')
+                                        |         Safety & protective equipment required
+                                    br
+                                    .form-check.no_border
+                                        label.form-check-label
+                                        input.form-check-input(type='radio', name='optionsRadios', value='option2')
+                                        |         Safety & protective equipment not required
+                                    br
+                                    .form-check.no_border
+                                        label.form-check-label
+                                        input.form-check-input(type='checkbox')
+                                        |       Eqipment isolation
+                                    br
+                                    button.btn.btn-primary(type='button') Submit
+                                    br
+            br
+            br
+            .row
+                .col-md-12
+                    a(href='/signout')
+                        button.btn.btn-primary.float-right(type='button') Signout
+                    if data.h5text == 'Reviewed permits'
+                        a(href='/create-permit')
+                            button.btn.btn-primary.float-right(type='button') Create Permit
+                                
+ 

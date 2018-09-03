@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    .row
+        .container
+            br
+            br
+            br
+            .col-md-12
+                h3.text-center Dear #{user.firstName} #{user.lastName}
+                br
+                br
+                if whichone == 'submit'
+                    h5.text-center.text-success Your permit has been sent successfully to authorized people.
+                    h5.text-center.text-success You will be notified via email once all of them review your permit.
+                else
+                    h5.text-center.text-success Your permit has been closed successfully.
+    br
+    br
+    br
+    .row
+        .container
+            .col-md-12
+                p.text-center
+                    a(href='/signout')
+                        button.btn.btn-primary.btn-lg Signout

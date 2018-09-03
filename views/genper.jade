@@ -1,0 +1,371 @@
+extends layout
+
+block content
+    .container
+        .row
+            .col-md-12
+                h4 General Work Permit
+                h4 Общий наряд-допуск на проведение работ №
+                  span#permit_id
+                br
+        .row
+          .col-md-12
+            form#qqq(action="/post-general-permit", method="post")
+              .row
+                input(type='hidden', id='gen_per_id', name='gen_per_id')
+                input(type='hidden', id='gen_per_status', name='gen_per_status')
+                input(type='hidden', name='gen_per_generator_name', value='#{user.firstName} #{user.lastName}')
+                input(type='hidden', name='gen_per_generator_email', value='#{user.email}')
+                .col-md-6.outer_box
+                  .form-row               
+                    h6 To be completed by the PIC or Designate
+                    h6 Заполняется Руководителем задания или назначенным им лицом
+                    .form-row
+                      .form-group
+                        label(for='work_loc') Work location/Место проведения работ:
+                        textarea#work_loc.form-control(rows='5', name="w_loc", required)
+                    .form-row
+                      .row
+                        .col-md-6
+                            .form-row
+                              .form-group
+                                label(for='date_from') Valid from (date)/Действ. с (дата):
+                                input#date_from.form-control(type='text', name="d_from", readonly)
+                        .col-md-6
+                            .form-row
+                              .form-group
+                                label(for='date_to') To (date)/По (дата):
+                                input#date_to.form-control(type='text', name="d_to", readonly)
+                    .form-row
+                      .form-group
+                        label(for='per_req') Permission requested by (name of group)/Наряд выдан (название отдела):
+                        textarea#per_req.form-control(rows='5', name="p_req", required)
+                    .form-row
+                      .form-group
+                        label(for='scope_work') Scope of work/Объем работы:
+                        textarea#scope_work.form-control(rows='5', name="s_work", required)
+                    .form-row
+                      .form-group
+                        label(for='equip_used') Equipment to be used/Используемое оборудование:
+                        textarea#equip_used.form-control(rows='5', name="e_used", required)
+                .col-md-6.outer_box
+                  .form-row        
+                    h6 SITE PRPARATION (completed by PIC and FO)
+                    h6 ПОДГОТОВКА МЕСТА ПРОВЕДЕНИЯ РАБОТ
+                    h6 (заполняет Руководитель задания и Руководитель объекта)
+                    .form-row
+                      .form-group
+                        label Check if required/Отметить при необходимости
+                        .form-check
+                          label.form-check-label
+                            input(type='hidden', value='0', name='checkbox1')
+                            input.form-check-input.gen_per_checkbox(type='checkbox', value='Eqipment isolation/Изоляция Оборудования', name='checkbox1')
+                            |  Eqipment isolation/Изоляция Оборудования
+                        .form-check
+                          label.form-check-label
+                            input(type='hidden', value='0', name='checkbox2')
+                            input.form-check-input.gen_per_checkbox(type='checkbox', value='Depressure, drain, purg equipment/Сброс давления, слив продукта, продувка', name='checkbox2')
+                            |  Depressure, drain, purg equipment/Сброс давления, слив продукта, продувка
+                        .form-check
+                          label.form-check-label
+                            input(type='hidden', value='0', name='checkbox3')
+                            input.form-check-input.gen_per_checkbox(type='checkbox', value='Lockout/Tagout/Установка замков и вывешивание ярлыков', name='checkbox3')
+                            |  Lockout/Tagout/Установка замков и вывешивание ярлыков
+                        .form-check
+                          label.form-check-label
+                            input(type='hidden', value='0', name='checkbox4')
+                            input.form-check-input.gen_per_checkbox(type='checkbox', value='Electrical disconnect/fuse removal/Отключение электропитания/снятие предохранителей', name='checkbox4')
+                            |  Electrical disconnect/fuse removal/Отключение электропитания/снятие предохранителей
+                        .form-check
+                          label.form-check-label
+                            input(type='hidden', value='0', name='checkbox5')
+                            input.form-check-input.gen_per_checkbox(type='checkbox', value='Binds and tags/Установка заглушек и вывешивание ярлыков', name='checkbox5')
+                            |  Binds and tags/Установка заглушек и вывешивание ярлыков
+                        .form-check
+                          label.form-check-label
+                            input(type='hidden', value='0', name='checkbox6')
+                            input.form-check-input.gen_per_checkbox(type='checkbox', value='Area barricafes/road closures/Установка ограждения/закрытие дороги', name='checkbox6')
+                            |  Area barricafes/road closures/Установка ограждения/закрытие дороги
+                        .form-check
+                          label.form-check-label
+                            input(type='hidden', value='0', name='checkbox7')
+                            input.form-check-input.gen_per_checkbox(type='checkbox', value='Two-way radio/Установление двусторонней связи', name='checkbox7')
+                            |  Two-way radio/Установление двусторонней связи
+                        .form-check
+                          label.form-check-label
+                            input(type='hidden', value='0', name='checkbox8')
+                            input.form-check-input.gen_per_checkbox(type='checkbox', value='Scaffolding/Установка лесов', name='checkbox8')
+                            |  Scaffolding/Установка лесов
+                        .form-check
+                          label.form-check-label
+                            input(type='hidden', value='0', name='checkbox9')
+                            input.form-check-input.gen_per_checkbox(type='checkbox', value='Rigging diagram prepared/Подготовлена схема грузоподъемных работ', name='checkbox9')
+                            |  Rigging diagram prepared/Подготовлена схема грузоподъемных работ
+                        .form-check
+                          label.form-check-label
+                            input(type='hidden', value='0', name='checkbox10')
+                            input.form-check-input.gen_per_checkbox(type='checkbox', value='X-ray work/Дефектоскопия', name='checkbox10')
+                            |  X-ray work/Дефектоскопия
+                        .form-check
+                          label.form-check-label
+                            input(type='hidden', value='0', name='checkbox11')
+                            input.form-check-input.gen_per_checkbox(type='checkbox', value='Mechanical ventilation/Искусственная вентиляция', name='checkbox11')
+                            |  Mechanical ventilation/Искусственная вентиляция
+                        .form-check
+                          label.form-check-label
+                            input(type='hidden', value='0', name='checkbox12')
+                            input.form-check-input.gen_per_checkbox(type='checkbox', value='Other/Другое', name='checkbox12')
+                            |  Other/Другое
+                  .form-row
+                    .form-group
+                      label(for='prot_equip') Safety & protective equipment required/Необходимое защитное оборудование:
+                      textarea#prot_equip.form-control(rows='5', name="p_equip", required)
+                  .form-row
+                    .form-group
+                      label(for='safe_meas') Special safety measures required/Специальные меры по обеспечению безопасности проведения работ:
+                      textarea#safe_meas.form-control(rows='5', name="s_meas", required)
+              if user.authorized == "yes"
+                .row
+                  .col-md-12.outer_box
+                    table.table.table-bordered
+                      thead
+                        tr
+                          th APPROVAL SIGNATURES
+                            br
+                            |  ПОДПИСИ ЛИЦ, РАЗРЕШАЮЩИХ НАЧАТЬ РАБОТЫ
+                          th Printed Name
+                            br 
+                            | ФИО
+                          th Signature
+                            br 
+                            | Подпись
+                          th Date
+                            br
+                            | Дата
+                      tbody
+                        tr
+                          td 
+                            span.owner_table_span Facility Owner (AGREE WITH PERMIT CONDITIONS)
+                            br
+                            span Руководитель объекта (СОГЛАСЕН С УСЛОВИЯМИ НАРЯДА-ДОПУСКА)
+                          td autofilled 
+                          td
+                            .form-group
+                              input.form-control(type='text', placeholder='NK')
+                            .form-group
+                              input.form-control(type='text', placeholder='Key')
+                            .form-group
+                              input.btn.btn-default(type='button', value='sign', onclick='signas(event)')
+                          td autofilled 
+                        tr
+                          td 
+                            span.owner_table_span Work Responsible Person (PERMIT CONDITIONS UNDERSTOOD)
+                            br
+                            span Ответственный за выполнение работ (УСЛОВИЯ НАРЯДА-ДОПУСКА ПОНИМАЮ)
+                          td autofilled 
+                          td
+                            .form-group
+                              input.form-control(type='text', placeholder='NK')
+                            .form-group
+                              input.form-control(type='text', placeholder='Key')
+                            .form-group
+                              input.btn.btn-default(type='button', value='sign', onclick='signas(event)') 
+                          td autofilled 
+                        tr
+                          td 
+                            span.owner_table_span Person in Charge (WORK MAY SAFELY BEGIN)
+                            br
+                            span Руководитель задания (УСЛОВИЯ БЕЗОПАСНЫ. МОЖНО НАЧИНАТЬ РАБОТЫ)
+                          td 
+                          td autofilled
+                            .form-group
+                              input.form-control(type='text', placeholder='NK')
+                            .form-group
+                              input.form-control(type='text', placeholder='Key')
+                            .form-group
+                              input.btn.btn-default(type='button', value='sign', onclick='signas(event)') 
+                          td autofilled 
+                        tr
+                          td 
+                            span.owner_table_span Facility Owner Designate (WORK MAY SAFELY BEGIN)
+                            span /Уполномоченный
+                            br
+                            span Руководитель объекта (УСЛОВИЯ БЕЗОПАСНЫ. МОЖНО НАЧИНАТЬ РАБОТЫ)
+                          td autofilled 
+                          td
+                            .form-group
+                              input.form-control(type='text', placeholder='NK')
+                            .form-group
+                              input.form-control(type='text', placeholder='Key')
+                            .form-group
+                              input.btn.btn-default(type='button', value='sign', onclick='signas(event)') 
+                          td autofilled 
+                .row
+                  .col-md-12.outer_box
+                    table.table.table-bordered
+                      thead
+                        tr
+                          th WORK COMPLETED/РАБОТЫ ЗАВЕРШЕНЫ
+                          th Printed Name
+                            br 
+                            | ФИО
+                          th Signature
+                            br 
+                            | Подпись
+                          th Date
+                            br
+                            | Дата
+                      tbody
+                        tr
+                          td 
+                            span.owner_table_span Work Responsible Person/Ответственный за выполнение работ
+                          td autofilled 
+                          td
+                            .form-group
+                              input.form-control(type='text', placeholder='NK')
+                            .form-group
+                              input.form-control(type='text', placeholder='Key')
+                            .form-group
+                              input.btn.btn-default(type='button', value='sign', onclick='signas(event)') 
+                          td autofilled 
+                        tr
+                          td 
+                            span.owner_table_span Person in Charge/Руководитель задания
+                          td autofilled 
+                          td
+                            .form-group
+                              input.form-control(type='text', placeholder='NK')
+                            .form-group
+                              input.form-control(type='text', placeholder='Key')
+                            .form-group
+                              input.btn.btn-default(type='button', value='sign', onclick='signas(event)') 
+                          td autofilled 
+                        tr
+                          td 
+                            span.owner_table_span Facility Owner Designate/Уполномоченный Руководителя объекта
+                          td autofilled 
+                          td
+                            .form-group
+                              input.form-control(type='text', placeholder='NK')
+                            .form-group
+                              input.form-control(type='text', placeholder='Key')
+                            .form-group
+                              input.btn.btn-default(type='button', value='sign', onclick='signas(event)') 
+                          td autofilled 
+              br
+              br
+              br
+              .row
+                .col-md-6
+                  span.owner_table_span Work Responsible Person:
+                  br
+                  span.owner_table_span PRE-WORK SAFETY BRIEFING HELD
+                  br
+                  span Ответственный за выполнение работ:
+                  br
+                  span ИНСТРУКТАЖ ПЕРЕД НАЧАЛОМ РАБОТ ПРОВЕДЕН
+                .col-md-4
+                  label(for='res_per_sign') Signature/Подпись
+                  .row
+                    .col
+                      input.form-control(type='text', placeholder='Your NK', reuired)
+                    .col
+                      input.form-control(type='password', placeholder='Your key', required)
+                    .col
+                      input.btn.btn-default(type='button', value='sign', onclick='signwrp(event)')
+                .col-md-2
+                  label(for='res_per_date') Date/Дата
+                  input#res_per_date.form-control(type='text', name='r_per_date', placeholder='Autofilled', readonly)
+              br
+              .row
+                .col-md-12
+                  h4.text-center Authorized Worker List
+                  h4.text-center Список исполнителей работ
+                  span.owner_table_span I understand the specific safety requirements of this job, appropriate Tengizchevroil Safety Instructions and have attended a pre-work safety briefing.
+                  br
+                  span Понимаю требования по ТБ при выполнении данного вида работ, соответствующие иструкции по ТБ компании "Тенгизшевройл" и прослушал инструктаж перед выполнением работ.
+              .row
+                .col-md-12.outer_box
+                  table.table.table-bordered
+                    thead
+                      tr
+                        th Printed Name
+                          br 
+                          | Фамилия
+                        th Signature
+                          br 
+                          | Подпись
+                    tbody#awltablebody
+                      tr
+                        td
+                          .row
+                            .col
+                              input.form-control(type='text', placeholder='Enter your NK')
+                            .col
+                              input.form-control(type='password', placeholder='Enter your key')
+                            .col
+                              input.btn.btn-default.awltablebody(type='button', value='sign', onclick='sign(event)')
+                        td
+                  p.text-center
+                    input.btn.btn-primary(type='button', value='add field', onclick='addAwlField("awltablebody")')
+              br
+              br
+              br
+              br
+              .row
+                .col-md-12
+                  .form-group
+                    select#type_of_work.form-control(name='type_of_work')
+                      option(selected) Choose type of work
+                      option Electrical activities
+                      option Welding activities
+                      option Lifting activities
+                      option Digging activities                     
+              br
+              br
+              .row
+                .col-md-12
+                  input.auth_per(type="hidden", name="reviewers[0][email]")
+                  input(type="hidden", name="reviewers[0][approved]", value="")
+                  input(type="hidden", name="reviewers[0][approved_time]", value="")
+                  input(type="hidden", name="reviewers[0][comment]", value="")
+                  input(type="hidden", name="reviewers[0][name]", value="")
+                  input(type="hidden", name="reviewers[0][signature]", value="")
+                  input(type="hidden", name="reviewers[0][reviewed]", value="no")
+                  input.auth_per(type="hidden", name="reviewers[1][email]")
+                  input(type="hidden", name="reviewers[1][approved]", value="")
+                  input(type="hidden", name="reviewers[1][approved_time]", value="")
+                  input(type="hidden", name="reviewers[1][comment]", value="")
+                  input(type="hidden", name="reviewers[1][name]", value="")
+                  input(type="hidden", name="reviewers[1][signature]", value="")
+                  input(type="hidden", name="reviewers[1][reviewed]", value="no")
+              .row
+                .col-md-12
+                  button.btn.btn-primary.float-right(type='button', data-toggle="modal", data-target="#myModal") Sign Out
+                  button.btn.btn-primary.float-right(type='submit') Send
+
+        .row
+          // The Modal
+          #myModal.modal
+            .modal-dialog
+              .modal-content
+                // Modal Header
+                .modal-header
+                  h4.modal-title Warning
+                  button.close(type='button', data-dismiss='modal') ×
+                // Modal body
+                .modal-body
+                  | If you sign out now all data will be lost! Would you like to sign out anyway?
+                // Modal footer
+                .modal-footer
+                  a(href='/signout')
+                    button.btn.btn-danger(type='button') Yes
+                  button.btn.btn-danger(type='button', data-dismiss='modal') No
+    script(src='/js/shared.js')
+    script(src='/js/genper.js') 
+                  
+
+
+
+
+            
